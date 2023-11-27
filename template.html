@@ -9,7 +9,7 @@
     <h1>Vulnerability Report</h1>
 
     {% for product_name, vulnerabilities in vulnerabilities_by_product.items() %}
-        <h2>{{ product_name }}</h2>
+        <h3>{{ product_name }}</h3>
         <ul>
             {% for vulnerability in vulnerabilities %}
                 <li>
@@ -36,8 +36,13 @@
         {% endfor %}
     </table>
 
-    <h1>Exploit Search Results</h1>
-
-    <pre>{{ run_exploit_results }}</pre>
+    <h1>Searchsploit Results</h1>
+    
+    {% for result in searchsploit_results %}
+        <div>
+            <h3>Service Info: {{ result.service_info }}</h3>
+            <pre>Searchsploit Result: {{ result.searchsploit_output }}</pre>
+        </div>
+    {% endfor %}
 </body>
 </html>
