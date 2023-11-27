@@ -157,8 +157,4 @@ def install_searchsploit():
 # List of required libraries
 required_libraries = ["searchsploit", "pony.orm", "jinja2", "weasyprint"]
 
-# Ask user whether to install missing libraries
 ask_installation(required_libraries)
-
-# If all libraries are installed, continue with the rest of your script
-print("You can now run your script.")
