@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<nmaprun>
+    <host>
+        <address addr="192.168.1.1"/>
+        <hostnames>
+            <hostname name="router.example.com"/>
+        </hostnames>
+        <ports>
+            <port protocol="tcp" portid="22">
+                <state state="open"/>
+                <service name="ssh"/>
+            </port>
+            <port protocol="tcp" portid="80">
+                <state state="open"/>
+                <service name="http"/>
+            </port>
+        </ports>
+    </host>
+    <host>
+        <address addr="192.168.1.2"/>
+        <hostnames>
+            <hostname name="web-server.example.com"/>
+        </hostnames>
+        <ports>
+            <port protocol="tcp" portid="80">
+                <state state="open"/>
+                <service name="http"/>
+            </port>
+            <port protocol="tcp" portid="443">
+                <state state="open"/>
+                <service name="https"/>
+            </port>
+        </ports>
+    </host>
+</nmaprun>
+
