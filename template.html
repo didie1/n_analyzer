@@ -2,55 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vulnerability Report</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-        }
-        h1, h2 {
-            color: #333;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        li {
-            margin-bottom: 10px;
-        }
-    </style>
 </head>
 <body>
     <h1>Vulnerability Report</h1>
 
-    <h2>Open Ports Vulnerabilities:</h2>
-    <ul>
-        {% for port_id, vulnerabilities in port_vuln.items() %}
-            <li>
-                <strong>Port {{ port_id }}:</strong>
-                <ul>
-                    {% for vuln in vulnerabilities %}
-                        <li>{{ vuln }}</li>
-                    {% endfor %}
-                </ul>
-            </li>
-        {% endfor %}
-    </ul>
+    {% for product_name, vulnerabilities in vulnerabilities_by_product.items() %}
+        <h2>{{ product_name }}</h2>
+        <ul>
+            {% for vulnerability in vulnerabilities %}
+                <li>
+                    CVE ID: <a href="{{ vulnerability.cve_url }}" target="_blank">{{ vulnerability.cve_id }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
 
-    <h2>CVE Vulnerabilities:</h2>
-    <ul>
-        {% for cve_id, details in cve_vuln.items() %}
-            <li>
-                <strong>CVE {{ cve_id }}:</strong>
-                <ul>
-                    {% for detail in details %}
-                        <li>{{ detail }}</li>
-                    {% endfor %}
-                </ul>
-            </li>
+    <h1>Open Ports Vulnerabilities</h1>
+
+    <table border="1">
+        <tr>
+            <th>Port Number</th>
+            <th>Protocol</th>
+            <th>Vulnerabilities</th>
+        </tr>
+        {% for result in open_ports_vulnerabilities %}
+            <tr>
+                <td>{{ result.port_number }}</td>
+                <td>{{ result.protocol }}</td>
+                <td>{{ result.vulnerabilities }}</td>
+            </tr>
         {% endfor %}
-    </ul>
+    </table>
+
+    <h1>Exploit Search Results</h1>
+
+    <pre>{{ run_exploit_results }}</pre>
 </body>
 </html>
