@@ -1,7 +1,78 @@
 import re 
+from pprint import pprint
+
+def parse_version(version_info):
+    """
+    Parse version information to extract the product and version.
+
+    Args:
+        version_info (str): The version information to parse.
+
+    Returns:
+        dict: A dictionary containing 'product' and 'version' keys.
+            - 'product' (str): The parsed product name.
+            - 'version' (str): The parsed version.
+
+    Notes:
+        - If the product or version cannot be extracted, default values of 'Unknown' are provided.
+    """
+    # Use a regular expression to extract the product and version
+    match = re.match(r'^([^\d]+)\s*([\d.]+)?', version_info)
+    if match:
+        product = match.group(1).strip().split()[0] if match.group(1) else "Unknown"  # Extracting the first word; Default to "Unknown" if product is None
+        version = match.group(2).strip() if match.group(2) else "Unknown"  # Default to "Unknown" if version is None
+        return {'product': product, 'version': version}
+    else:
+        return {'product': "Unknown", 'version': "Unknown"}
+
 def parse_txt(nmap_output):
+    """
+    Parse Nmap scan output in text format.
+
+    Args:
+        nmap_output (str): The Nmap scan output in text format.
+
+    Returns:
+        dict: A dictionary containing parsed information with the following structure:
+            {
+                'scan_info': {},
+                'host_info': {
+                    'hostname': str,
+                    'ip_address': str
+                },
+                'ports_info': [
+                    {
+                        'portid': int,
+                        'protocol': str,
+                        'state': str,
+                        'service': {
+                            'name': str,
+                            'product': str,
+                            'version': str
+                        }
+                    },
+                    # Additional port entries if present
+                ],
+                'os_info': {
+                    'device_type': str,
+                    'running': str,
+                    'os_cpe': str,
+                    'os_details': str
+                },
+                'trace_info': [
+                    {
+                        'ttl': int,
+                        'rtt': str,
+                        'address': str
+                    },
+                    # Additional traceroute entries if present
+                ]
+            }
+
+    Notes:
+        - Default values of 'Unknown' are provided for missing keys.
+    """ 
     data = {
-        'scan_info': {},
         'host_info': {},
         'ports_info': [],
         'os_info': {},
@@ -22,16 +93,21 @@ def parse_txt(nmap_output):
             port_info = line.split()
             port_id = int(port_info[0].split('/')[0])
             protocol = port_info[0].split('/')[1]
+
+            version_info = ' '.join(port_info[3:])
+            version_data = parse_version(version_info)
+
             data['ports_info'].append({
                 'portid': port_id,
                 'protocol': protocol,
                 'state': port_info[1],
                 'service': {
                     'name': port_info[2],
-                    'product': None,
-                    'version': ' '.join(port_info[3:])
+                    'product': version_data['product'],
+                    'version': version_data['version']
                 }
             })
+
         elif line.startswith("Device type:"):
             data['os_info']['device_type'] = ' '.join(line.split(':')[1:]).strip()
 
