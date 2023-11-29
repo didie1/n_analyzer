@@ -15,7 +15,6 @@ Ce projet a pour but d'aider dans l'analyse des résultats de nmap, afin de gén
 
 ## Features
 
-- Comparaison
 - Open port and vulnerabilities
 - Exploit lookup
 - CVE lookup
