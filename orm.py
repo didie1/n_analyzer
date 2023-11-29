@@ -49,7 +49,14 @@ vulnerabilities_db.generate_mapping(create_tables=True)
 
 @db_session
 def vulnerabilities_database():
-    # Insert data into the vulnerabilities table
+     """
+    Inserts predefined vulnerability data into the vulnerabilities table.
+
+    This function populates the vulnerabilities table with pre-defined data
+    regarding ports, protocols, descriptions, and potential vulnerabilities.
+
+    :return: None
+    """
     ports_data = [
         (20, 'FTP', 'File Transfer Protocol', 'Brute-forcing passwords, anonymous authentication, cross-site scripting, directory traversal attacks.'),
         (21, 'FTP', 'File Transfer Protocol', 'Brute-forcing passwords, anonymous authentication, cross-site scripting, directory traversal attacks.'),
@@ -81,11 +88,23 @@ def vulnerabilities_database():
 
 @db_session
 def query_open_ports():
+    """
+    Queries and returns a list of open ports from the Port table.
+
+    :return: List of open ports (Port instances)
+    """
     open_ports = Port.select(lambda op: op.state == "open")[:]
     return open_ports
 
 @db_session
 def query_vulnerabilities(port_number, protocol):
+    """
+    Queries and returns information about vulnerabilities for a specific port and protocol.
+
+    :param port_number: The port number to query vulnerabilities for.
+    :param protocol: The protocol associated with the port.
+    :return: Vulnerability information (Vulnerability instance) or None if not found.
+    """
     vulnerabilities_info = Vulnerability.get(port_number=port_number, protocol=protocol)
     return vulnerabilities_info
 
@@ -93,10 +112,13 @@ def query_vulnerabilities(port_number, protocol):
 @db_session
 def insert_txt(parsed_data):
     """
-    This function inserts the data parsed by the text parser in the database with Pony ORM.
+    Inserts parsed data into the database using Pony ORM.
 
-    :param parsed_data: (dict) Parsed data containing information about the scan.
-    :return: Nothing
+    This function takes parsed data, including information about the host, open ports, OS details,
+    and traceroute data, and inserts it into the database using the Pony ORM.
+
+    :param parsed_data: Parsed data containing information about the scan.
+    :return: None
     """
     # Insert data for Host
     host = Host(
@@ -136,6 +158,15 @@ def insert_txt(parsed_data):
 
 @db_session
 def insert_xml(data):
+     """
+    Inserts XML data into the database using Pony ORM.
+
+    This function takes XML data, including information about hosts and their associated ports,
+    and inserts it into the database using the Pony ORM.
+
+    :param data: XML data containing information about hosts and ports.
+    :return: None
+    """
     for host in data:
         host_info = Host(hostname=host['hostname'], ip_address=host['address'])
         for port in host['ports']:
@@ -144,6 +175,11 @@ def insert_xml(data):
 
 @db_session
 def get_service():
+     """
+    Retrieves and returns service information from the Port table.
+
+    :return: List of tuples containing service name and version information.
+    """
     return select((p.service_name, p.service_version) for p in Port)
 
 #Generate the mapping and create tables
