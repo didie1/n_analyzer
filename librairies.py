@@ -153,8 +153,3 @@ def install_searchsploit():
     except Exception as e:
         print(f"An unexpected error occurred during SearchSploit installation: {e}")
         exit()
-
-# List of required libraries
-required_libraries = ["searchsploit", "pony.orm", "jinja2", "weasyprint"]
-
-ask_installation(required_libraries)
