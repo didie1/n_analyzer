@@ -11,7 +11,7 @@ from parse_txt import *
 from exploit import *
 from render import * 
 import os
-from librairies import *
+
 
 port_vuln = []
 cve_vuln = []
