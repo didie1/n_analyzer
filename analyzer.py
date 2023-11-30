@@ -3,7 +3,6 @@ import requests
 import re
 import os
 import sqlite3
-from lxml import etree
 from cve import find_vulnerabilities
 from orm import *
 from parse_xml import *
@@ -11,7 +10,6 @@ from pony.orm import *
 from parse_txt import *
 from exploit import *
 from render import * 
-from pprint import pprint
 import os
 from librairies import *
 
@@ -75,7 +73,7 @@ def parse_file(file_path, file_type):
 
 @db_session
 def main():
-     """
+    """
     Main function to collect user input for file paths and types,
     perform database queries, and generate vulnerability reports.
 
