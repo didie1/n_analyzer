@@ -5,7 +5,6 @@ import os
 import sqlite3
 from lxml import etree
 from cve import find_vulnerabilities
-from ext import version
 from orm import *
 from parse_xml import *
 from pony.orm import *
