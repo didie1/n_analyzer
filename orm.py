@@ -1,6 +1,6 @@
 from pony.orm import *
 
-db = Database("sqlite", "nmap_results.db")
+db = Database("sqlite", ":memory:")
 
 class Host(db.Entity):
     id = PrimaryKey(int, auto=True)
@@ -35,7 +35,7 @@ class Traceroute(db.Entity):
     host = Required(Host)
 
 # Define the Pony ORM database entity for the vulnerabilities database
-vulnerabilities_db = Database("sqlite", "vulnerabilities.db")
+vulnerabilities_db = Database("sqlite", ":memory:")
 
 class Vulnerability(vulnerabilities_db.Entity):
     id = PrimaryKey(int, auto=True)
