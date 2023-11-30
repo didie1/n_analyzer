@@ -21,3 +21,8 @@ Ce projet a pour but d'aider dans l'analyse des résultats de nmap, afin de gén
 
 ## Utilisation
 
+- Lancer librairies.py pour avoir les librairies nécessaires
+- Lancer analyzer.py
+- Rentrer le nombre de fichiers  à analyser
+- Rentrer le chemin du fichier
+- préciser si c'est un html ou pdf 
