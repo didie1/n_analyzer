@@ -49,7 +49,7 @@ vulnerabilities_db.generate_mapping(create_tables=True)
 
 @db_session
 def vulnerabilities_database():
-     """
+    """
     Inserts predefined vulnerability data into the vulnerabilities table.
 
     This function populates the vulnerabilities table with pre-defined data
@@ -158,7 +158,7 @@ def insert_txt(parsed_data):
 
 @db_session
 def insert_xml(data):
-     """
+    """
     Inserts XML data into the database using Pony ORM.
 
     This function takes XML data, including information about hosts and their associated ports,
@@ -175,7 +175,7 @@ def insert_xml(data):
 
 @db_session
 def get_service():
-     """
+    """
     Retrieves and returns service information from the Port table.
 
     :return: List of tuples containing service name and version information.
