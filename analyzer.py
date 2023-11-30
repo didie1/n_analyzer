@@ -80,9 +80,6 @@ def main():
     Raises:
         Exception: Any exception that occurs during the execution of the main function.
     """
-    # List of required libraries
-    required_libraries = ["searchsploit", "pony.orm", "jinja2", "weasyprint"]
-    ask_installation(required_libraries)
     
     num_files = int(input("Enter the number of files: "))
     cve_data = {}
